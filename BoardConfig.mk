@@ -19,6 +19,7 @@ BUILD_BROKEN_MISSING_REQUIRED_MODULES := true
 # LZMA Compression
 BOARD_RAMDISK_USE_LZMA := true
 
+TARGET_USES_64_BIT_BINDER := true
 TARGET_SUPPORTS_64_BIT_APPS := true
 
 # Architecture
@@ -39,28 +40,30 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a76
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := sm6150
 TARGET_NO_BOOTLOADER := true
+TARGET_USES_UEFI := true
 
-# Android Verified Boot
+#AVB
 BOARD_AVB_ENABLE := true
-BOARD_AVB_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --set_hashtree_disabled_flag
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 2
-
 BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
+BOARD_AVB_VBMETA_SYSTEM := system
+BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
 
-BOARD_AVB_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
-BOARD_AVB_SYSTEM_ALGORITHM := SHA256_RSA2048
-BOARD_AVB_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
-BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
+# enable python3
+TW_INCLUDE_PYTHON := true
+#
 
 # Kernel
 BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=1 androidboot.usbcontroller=a600000.dwc3 firmware_class.path=/vendor/firmware_mnt/image nokaslr printk.devkmsg=on loop.max_part=7
 BOARD_KERNEL_CMDLINE += androidboot.avb_version=1.0 androidboot.vbmeta.avb_version=1.0
 BOARD_KERNEL_CMDLINE += androidboot.boot_devices=soc/1d84000.ufshc
-#BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_OFFSET      := 0x00008000
@@ -162,6 +165,15 @@ TW_NO_REBOOT_BOOTLOADER := true
 ## TW_INCLUDE_CRYPTO := true
 ## TW_INCLUDE_LPDUMP := true
 ## TW_INCLUDE_LPTOOLS := true
+TW_INCLUDE_REPACKTOOLS := true
+TW_INCLUDE_RESETPROP := true
+TW_INCLUDE_FUSE_EXFAT := true
+TW_INCLUDE_FUSE_NTFS := true
+
+# Crypto
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+BOARD_USES_QCOM_FBE_DECRYPTION := true
 
 # Debugging
 TWRP_INCLUDE_LOGCAT := true
