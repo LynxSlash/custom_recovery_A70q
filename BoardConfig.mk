@@ -123,6 +123,8 @@ TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 BOARD_USES_QCOM_HARDWARE := true
 
 # Recovery
+LZMA_RAMDISK_TARGETS := recovery
+RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_DOWNLOAD_MODE := true
 BOARD_INCLUDE_RECOVERY_DTBO := true
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
@@ -165,50 +167,28 @@ TW_NO_REBOOT_BOOTLOADER := true
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 
-
-# SHRP Configuration
-
-# Device codename
-SHRP_DEVICE_CODE := a70q
-
-# Maintainer name
-SHRP_MAINTAINER := lynx
-
-# Recovery Type
-SHRP_REC_TYPE := Treble
-
-# Device Type (for "About" section only)
+# SHRP specific build flags
+SHRP_PATH := device/samsung/a70q
+SHRP_MAINTAINER := lynxSlash
+SHRP_DEVICE_CODE= a70q
+SHRP_REC_TYPE := SAR
 SHRP_DEVICE_TYPE := A_Only
-
-# Your device's recovery path
-SHRP_REC := /dev/block/by-name/recovery
-
-# Use this flag only if SHRP_REC is set
-SHRP_HAS_RECOVERY_PARTITION := true
-
-# Emergency DownLoad mode
-SHRP_EDL_MODE := 1
-
-# Internal storage path
-SHRP_INTERNAL := /sdcard
-
-# External SDcard path
-
-SHRP_EXTERNAL := /external_sd
-
-# USB OTG path
-SHRP_OTG := /usb_otg
-
-# Flashlight: 
-SHRP_FLASH := 1
-
-# For notch devices
+SHRP_STATUSBAR_RIGHT_PADDING := 48
+SHRP_STATUSBAR_LEFT_PADDING := 48
 SHRP_NOTCH := true
-
-# SHRP Express, enables on-the-fly theme patching (also persistent) + persistent lock
 SHRP_EXPRESS := true
-
+SHRP_DARK := true
+SHRP_EDL_MODE := 1
+SHRP_EXTERNAL := /external_sd
+SHRP_INTERNAL := /sdcard
+SHRP_OTG := /usb_otg
+SHRP_FLASH := 1
+SHRP_REC := /dev/block/bootdevice/by-name/recovery
+SHRP_NO_SAR_AUTOMOUNT := true
 #SHRP_CUSTOM_FLASHLIGHT := true
 #SHRP_FONP_1 := /sys/class/leds/led:torch_0/brightness
 #SHRP_FONP_2 := /sys/class/leds/led:torch_1/brightness
 #SHRP_FONP_3 := /sys/class/leds/led:switch/brightness
+
+
+
