@@ -16,6 +16,11 @@ TARGET_SCREEN_WIDTH := 1080
 PRODUCT_PACKAGES += \
     fastbootd
 
+# Crypto
+PRODUCT_PACKAGES += \
+    qcom_decrypt \
+    qcom_decrypt_fbe
+
 # Ramdisk bin
 PRODUCT_PACKAGES += \
     init.class_main.sh \
