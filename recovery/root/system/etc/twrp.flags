@@ -1,0 +1,26 @@
+# Android fstab file.
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+
+# mount point  fstype device                             device2              flags
+/boot          emmc   /dev/block/bootdevice/by-name/boot                      flags=display="Boot";backup=1;flashimg=1
+/dtbo          emmc   /dev/block/bootdevice/by-name/dtbo                      flags=backup=1;display="Dtbo";flashimg=1
+/cache         ext4   /dev/block/bootdevice/by-name/cache
+/recovery      emmc   /dev/block/bootdevice/by-name/recovery                  flags=display="Recovery";backup=1;flashimg=1
+/product      ext4      /dev/block/bootdevice/by-name/product                  flags=display="Product";backup=1;wipeingui
+/system       ext4      /dev/block/bootdevice/by-name/system                   flags=display="System";backup=1;wipeingui
+/vendor        ext4      /dev/block/bootdevice/by-name/vendor                   flags=display="Vendor";backup=1;wipeingui
+
+/system_image  emmc   /dev/block/platform/soc/1d84000.ufshc/by-name/system       flags=display="System image";backup=1;flashimg=1
+/vendor_image  emmc   /dev/block/platform/soc/1d84000.ufshc/by-name/vendor     flags=display="Vendor image";backup=1;flashimg=1
+/product_image  emmc /dev/block/platform/soc/1d84000.ufshc/by-name/product        flags=display="Product image";backup=1;flashimg=1
+
+/misc          emmc   /dev/block/bootdevice/by-name/misc
+/firmware           vfat      /dev/block/bootdevice/by-name/apnhlos
+/modem              vfat      /dev/block/bootdevice/by-name/modem
+
+#/dev/block/zram0                                        none                     swap    defaults                                             zramsize=1073741824
+
+# Removable storage
+/external_sd   vfat   /dev/block/mmcblk0p1               /dev/block/mmcblk0   flags=display="Micro SDcard";storage;wipeingui;removable;encryptable=footer;length=-16384;
+/usb-otg       vfat   /dev/block/sde1                    /dev/block/sde       flags=display="USB-OTG";storage;wipeingui;removable;
