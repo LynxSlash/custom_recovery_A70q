@@ -2,14 +2,8 @@
 # The filesystem that contains the filesystem checker binary (typically /system) cannot
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
-#TODO: Add 'check' as fs_mgr_flags with data partition.
-# Currently we dont have e2fsck compiled. So fs check would failed.
+#<src>                                 <mnt_point>   <type>  <mnt_flags and options>            <fs_mgr_flags>
+/dev/block/bootdevice/by-name/userdata   /data        ext4    fileencryption=ice:aes-256-cts
+/dev/block/bootdevice/by-name/userdata   /data        f2fs    nosuid,nodev,fsync_mode=nobarrier     latemount,wait,check,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,quota
 
-#<src>                                                                 <mnt_point>          <type>      <mnt_flags and options>                                                                    <fs_mgr_flags>
-/dev/block/platform/soc/1d84000.ufshc/by-name/system             /system               ext4        ro,barrier=1,discard                                                                           wait
-/dev/block/platform/soc/1d84000.ufshc/by-name/omr	             /metadata	           ext4	       noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic   wait,formattable,check,first_stage_mount
-/dev/block/platform/soc/1d84000.ufshc/by-name/userdata           /data                  f2fs         latemount,wait,check,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,quota,reservedsize=128M,checkpoint=fs
-
-# Need to have this entry in here even though the mount point itself is no longer needed.
-# The update_engine code looks for this entry in order to determine the boot device address
-# and fails if it does not find it.
+/dev/block/bootdevice/by-name/misc       /misc        emmc    defaults                            defaults
